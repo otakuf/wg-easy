@@ -237,15 +237,15 @@ Endpoint = ${WG_HOST}:${WG_PORT}`;
     const preSharedKey = await Util.exec('wg genpsk');
 
     // Calculate next IP
+    let address_new;
     try {
-      let address;
       for (let i = 1; ; i++) {
-        address = await this.__getNthHostAddress(i);
+        address_new = await this.__getNthHostAddress(i);
         // warns about address being used unsafely, but since the function only exists in the loop
         // scope this isn't an issue
         // eslint-disable-next-line no-loop-func
         const client = Object.values(config.clients).find(client => {
-          return address;
+          return client.address === address_new;
         });
 
         if (!client) {
@@ -260,7 +260,7 @@ Endpoint = ${WG_HOST}:${WG_PORT}`;
     const clientId = uuid.v4();
     const client = {
       name,
-      address,
+      address: address_new,
       privateKey,
       publicKey,
       preSharedKey,
