@@ -1,14 +1,11 @@
 name: Deployment Test
-
 on:
   push:
     branches:
       - master
-
 env:
   RUNNER_PATH: ${{ github.workspace }}
   DEPLOY_PATH: /opt/my-super-project
-
 jobs:
   checkout:
     runs-on: [self-hosted]
@@ -26,7 +23,6 @@ jobs:
         echo "Deploy path: " ${{ env.DEPLOY_PATH }}
     - name: Print file list && owners
       run: sudo ls -la .
-
   deploy:
     needs: checkout
     runs-on: [self-hosted]
@@ -34,7 +30,6 @@ jobs:
     - name: Deploy docker compose file to server work dir
       run: |
         sudo rsync -av --ignore-times ./docker-compose.yml ${{ env.DEPLOY_PATH }}
-  
   run:
     needs: deploy
     runs-on: [self-hosted]
