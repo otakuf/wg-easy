@@ -1,0 +1,24 @@
+name: Deployment Test
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: [self-hosted]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: |
+          docker-compose.yml
+        sparse-checkout-cone-mode: false
+
+    - name: Print current branch
+      run: echo "Current branch: ${{ github.ref }}"
+
+    - name: Print file list && owners
+      run: ls -la .
