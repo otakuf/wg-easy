@@ -39,4 +39,4 @@ jobs:
     steps:
     - name: Check current directory
       run: |
-        sudo pwd
+        sudo pwd && uptime
