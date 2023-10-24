@@ -25,9 +25,9 @@ jobs:
       run: ls -la .
 
   deploy:
+    needs: checkout
     runs-on: [self-hosted]
-
     steps:
     - name: Deploy docker compose file to server
       run: |
-        sudo rsync -av docker-compose.yaml /opt/my-super-project/docker-compose.yaml
+        sudo rsync -av ./docker-compose.yaml /opt/my-super-project/docker-compose.yaml
