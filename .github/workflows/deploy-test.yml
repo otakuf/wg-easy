@@ -18,7 +18,8 @@ jobs:
         sparse-checkout-cone-mode: false
 
     - name: Print current branch
-      run: echo "Current branch: ${{ github.ref }}"
+      run: | 
+        echo "Current branch: ${{ github.ref }}"
 
     - name: Print file list && owners
       run: ls -la .
