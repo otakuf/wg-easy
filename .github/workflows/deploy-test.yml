@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  build:
+  checkout:
     runs-on: [self-hosted]
 
     steps:
@@ -23,3 +23,11 @@ jobs:
 
     - name: Print file list && owners
       run: ls -la .
+
+  deploy:
+    runs-on: [self-hosted]
+
+    steps:
+    - name: Deploy docker compose file to server
+      run: |
+        sudo rsync -av docker-compose.yaml /opt/my-super-project/docker-compose.yaml
