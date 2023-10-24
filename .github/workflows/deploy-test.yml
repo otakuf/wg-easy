@@ -8,7 +8,6 @@ on:
 jobs:
   checkout:
     runs-on: [self-hosted]
-
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
@@ -16,11 +15,9 @@ jobs:
         sparse-checkout: |
           docker-compose.yml
         sparse-checkout-cone-mode: false
-
     - name: Print current branch
-      run: | 
+      run: |
         echo "Current branch: ${{ github.ref }}"
-
     - name: Print file list && owners
       run: ls -la .
 
@@ -28,6 +25,8 @@ jobs:
     needs: checkout
     runs-on: [self-hosted]
     steps:
+    - name: Print file list && owners
+      run: ls -la .
     - name: Deploy docker compose file to server
       run: |
         sudo rsync -av ./docker-compose.yaml /opt/my-super-project/docker-compose.yaml
